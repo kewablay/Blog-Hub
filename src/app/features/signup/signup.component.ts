@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthServiceService } from '../../services/auth-service/auth-service.service';
+import { AuthService } from '../../services/auth-service/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,10 +9,10 @@ import { AuthServiceService } from '../../services/auth-service/auth-service.ser
   styleUrl: './signup.component.sass',
 })
 export class SignupComponent {
-  constructor(private authService: AuthServiceService) {}
+  constructor(private authService: AuthService) {}
 
   TestSubmit() {
-    console.log("About to signup")
+    console.log('About to signup');
     this.authService.signUp('kewablay@gmail.com', 'deadpool', 'password123');
   }
 }
