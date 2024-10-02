@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BlogPostService } from '../../services/blog-post/blog-post.service';
 import { AuthService } from '../../services/auth-service/auth.service';
+import { NavbarComponent } from "../../components/navbar/navbar.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [NavbarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.sass',
 })
