@@ -1,0 +1,51 @@
+@use './_variables.sass' as *
+    
+@mixin flex($direction: row)
+    display: flex
+    flex-direction: $direction
+
+    @if $direction == row
+        align-items: center
+    @else
+        justify-content: center
+
+@mixin flex-between($direction: row) 
+    display: flex 
+    flex-direction: $direction
+    @if $direction == row
+        justify-content: space-between
+        align-items: center
+    @else
+        align-items: space-between
+        justify-content: center
+
+
+@mixin card($bg-color)
+    @include flex($direction: column)
+    background: $bg-color
+    gap: 1rem
+    padding: 1.5rem
+    border-radius: 10px
+
+
+@mixin button($bg-color, $color)
+    @include flex($direction: row)
+    justify-content: center
+    gap: .5rem
+    background: $bg-color
+    color: $color
+    border: none
+    padding: .5rem .8rem
+    border-radius: 2rem
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-weight: 600
+    font-size: 14px
+
+
+@mixin breakpoint($breakpoint)
+  @if map-has-key($map-for-breakpoints, $breakpoint)
+    @media (min-width: map-get($map-for-breakpoints, $breakpoint))
+      @content
+  @else
+    @error "Breakpoint '#{$breakpoint}' is not defined."
+
