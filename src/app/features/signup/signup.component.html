@@ -1,4 +1,3 @@
-
 <section class="grid">
   <form [formGroup]="signUpForm" (submit)="onSubmit()">
     <div class="intro">
@@ -10,14 +9,26 @@
 
     <div class="input-sections">
       <div class="input-group">
-        <!-- <label for="email">Username</label> -->
+        <!-- <label for="username">Username</label> -->
         <input
           formControlName="username"
           type="text"
           name="username"
           id="username"
           placeholder="Username"
+          [style]="{
+            borderColor:
+              signUpForm.get('username')?.invalid &&
+              signUpForm.get('username')?.touched
+                ? 'var(--clr-red)'
+                : ''
+          }"
         />
+        @if(signUpForm.get('username')?.invalid &&
+        signUpForm.get('username')?.touched){
+        @if(signUpForm.get('username')?.errors?.['required']){
+        <small class="text-warning">Username is required</small>
+        } }
       </div>
       <div class="input-group">
         <!-- <label for="email">Email</label> -->
@@ -27,7 +38,21 @@
           type="email"
           name="email"
           id="email"
+          [style]="{
+            borderColor:
+              signUpForm.get('email')?.invalid &&
+              signUpForm.get('email')?.touched
+                ? 'var(--clr-red)'
+                : ''
+          }"
         />
+        @if(signUpForm.get('email')?.invalid &&
+        signUpForm.get('email')?.touched){
+        @if(signUpForm.get('email')?.errors?.['required']){
+        <small class="text-warning">Email is required</small>
+        } @if(signUpForm.get('email')?.errors?.['email']){
+        <small class="text-warning">Invalid email format</small>
+        } }
       </div>
 
       <div class="input-group">
@@ -38,7 +63,23 @@
           name="password"
           id="password"
           placeholder="Password"
+          [style]="{
+            borderColor:
+              signUpForm.get('password')?.invalid &&
+              signUpForm.get('password')?.touched
+                ? 'var(--clr-red)'
+                : ''
+          }"
         />
+        @if(signUpForm.get('password')?.invalid &&
+        signUpForm.get('password')?.touched){
+        @if(signUpForm.get('password')?.errors?.['required']){
+        <small class="text-warning">Password is required</small>
+        } @if(signUpForm.get('password')?.errors?.['minlength']){
+        <small class="text-warning"
+          >Password must be at least 6 characters</small
+        >
+        }}
       </div>
       <div class="input-group">
         <!-- <label for="password">Confirm Password</label> -->
@@ -48,11 +89,30 @@
           name="confirmPassword"
           id="confirmPassword"
           placeholder="Confirm Password"
+          [style]="{
+            borderColor:
+              signUpForm.hasError('mismatch') &&
+              signUpForm.get('confirmPassword')?.touched
+                ? 'var(--clr-red)'
+                : ''
+          }"
         />
+        @if(signUpForm.hasError('mismatch') &&
+        signUpForm.get('confirmPassword')?.touched){
+        <small class="text-warning">Passwords do not match.</small>
+        }
       </div>
     </div>
 
-    <button type="submit">Sign Up</button>
+    <button type="submit">
+      @if(signUpLoading){
+      <div class="loader"></div>
+      }@else{ Create an account }
+    </button>
+
+    <p class="have-an-account">
+      Don't have an account? <a class="link" routerLink="/login">Login</a>
+    </p>
   </form>
 
   <div class="image"></div>

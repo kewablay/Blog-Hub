@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { getAuth } from '@angular/fire/auth';
 import {
@@ -7,17 +7,24 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { NOTYF } from '../../utils/notyf.token';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass',
 })
 export class LoginComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  loginLoading: boolean = false;
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    @Inject(NOTYF) private notyf: Notyf
+  ) {}
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -40,17 +47,27 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      this.loginLoading = true;
       const { email, password } = this.loginForm.value;
       if (email && password) {
         this.authService
           .login(email, password)
           .then(() => {
+            this.loginLoading = false;
+            this.notyf.success('Account created successful.');
             this.router.navigate(['']);
           })
-          .catch((err) => console.log('error occured while logging in', err.message));
-          console.log(this.loginForm.value);
+          .catch(
+            (err) => {
+              this.loginLoading = false;
+              this.notyf.error('Error occured while logging in');
+            }
+            // console.log('error occured while logging in', err.message)
+          );
+        console.log(this.loginForm.value);
       }
-
+    } else {
+      this.loginForm.markAllAsTouched();
     }
   }
 }
