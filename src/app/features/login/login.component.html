@@ -1,27 +1,39 @@
-<!-- <form>
-  <input type="email" name="email" id="email" />
-  <input type="password" name="password" id="password" />
-  <button type="submit">Sign Up</button>
-</form> -->
 
-<button type="button" (click)="TestSubmit()">Login</button>
+<section class="grid">
+  <form [formGroup]="loginForm" (submit)="onSubmit()">
+    <div class="intro">
+      <h1>Welcome Back</h1>
+      <p>
+        Sign in to stay connected with your favorite content and join the
+        conversation.
+      </p>
+    </div>
 
-<form [formGroup]="loginForm" (submit)="onSubmit()">
+    <div class="input-sections">
+      <div class="input-group">
+        <!-- <label for="email">Email</label> -->
+        <input
+          placeholder="Email"
+          formControlName="email"
+          type="email"
+          name="email"
+          id="email"
+        />
+      </div>
 
-  <div class="input-group">
-    <label for="email">Email</label>
-    <input formControlName="email" type="email" name="email" id="email" />
-  </div>
+      <div class="input-group">
+        <!-- <label for="password">Password</label> -->
+        <input
+          formControlName="password"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+        />
+      </div>
+    </div>
 
-  <div class="input-group">
-    <label for="password">Password</label>
-    <input
-      formControlName="password"
-      type="password"
-      name="password"
-      id="password"
-    />
-  </div>
-
-  <button type="submit">Login</button>
-</form>
+    <button type="submit">Login</button>
+  </form>
+  <div class="image"></div>
+</section>
