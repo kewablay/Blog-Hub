@@ -3,19 +3,26 @@ import {
   Auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  user,
 } from '@angular/fire/auth';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  
   constructor(
     private firestore: Firestore,
     private auth: Auth,
     private router: Router
   ) {}
+
+  authState(): Observable<any> {
+    return user(this.auth); 
+  }
 
   login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password);
