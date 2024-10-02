@@ -2,6 +2,7 @@ import {
   ApplicationConfig,
   importProvidersFrom,
   isDevMode,
+  PLATFORM_ID,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
@@ -19,6 +20,7 @@ import {
   ScreenTrackingService,
   UserTrackingService,
 } from '@angular/fire/analytics';
+import { NOTYF, notyfFactory } from './utils/notyf.token';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,5 +37,6 @@ export const appConfig: ApplicationConfig = {
     provideAnalytics(() => getAnalytics()),
     ScreenTrackingService,
     UserTrackingService,
+    { provide: NOTYF, useFactory: notyfFactory },
   ],
 };
