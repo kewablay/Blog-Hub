@@ -1,51 +1,59 @@
-<!-- <form >
-  <input type="email" name="email" id="email" />
-  <input type="password" name="password" id="password" />
-</form> -->
 
-<!-- <button type="button" (click)="TestSubmit()">Signup</button> -->
+<section class="grid">
+  <form [formGroup]="signUpForm" (submit)="onSubmit()">
+    <div class="intro">
+      <h1>Get started</h1>
+      <p>
+        Create an account with us today to enjoy premium blogging experience
+      </p>
+    </div>
 
-<!-- <form>
-  <input type="email" name="email" id="email" />
-  <input type="password" name="password" id="password" />
-  <button type="submit">Sign Up</button>
-</form> -->
+    <div class="input-sections">
+      <div class="input-group">
+        <!-- <label for="email">Username</label> -->
+        <input
+          formControlName="username"
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Username"
+        />
+      </div>
+      <div class="input-group">
+        <!-- <label for="email">Email</label> -->
+        <input
+          placeholder="Email"
+          formControlName="email"
+          type="email"
+          name="email"
+          id="email"
+        />
+      </div>
 
-<!-- <button type="button" (click)="TestSubmit()">Login</button> -->
+      <div class="input-group">
+        <!-- <label for="password">Password</label> -->
+        <input
+          formControlName="password"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+        />
+      </div>
+      <div class="input-group">
+        <!-- <label for="password">Confirm Password</label> -->
+        <input
+          formControlName="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          placeholder="Confirm Password"
+        />
+      </div>
+    </div>
 
-<form [formGroup]="signUpForm" (submit)="onSubmit()">
-  <div class="input-group">
-    <label for="email">Username</label>
-    <input
-      formControlName="username"
-      type="text"
-      name="username"
-      id="username"
-    />
-  </div>
-  <div class="input-group">
-    <label for="email">Email</label>
-    <input formControlName="email" type="email" name="email" id="email" />
-  </div>
+    <button type="submit">Sign Up</button>
+  </form>
 
-  <div class="input-group">
-    <label for="password">Password</label>
-    <input
-      formControlName="password"
-      type="password"
-      name="password"
-      id="password"
-    />
-  </div>
-  <div class="input-group">
-    <label for="password">Confirm Password</label>
-    <input
-      formControlName="confirmPassword"
-      type="password"
-      name="confirmPassword"
-      id="confirmPassword"
-    />
-  </div>
-
-  <button type="submit">Sign Up</button>
-</form>
+  <div class="image"></div>
+</section>
