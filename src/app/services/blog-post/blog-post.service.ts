@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, Firestore } from '@angular/fire/firestore';
+import {
+  collection,
+  collectionData,
+  DocumentData,
+  Firestore,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,9 +13,8 @@ import { Observable } from 'rxjs';
 export class BlogPostService {
   constructor(private firestore: Firestore) {}
 
-  getBlogPosts(): Observable<unknown[]> {
+  getBlogPosts(): Observable<DocumentData[]> {
     const postCollection = collection(this.firestore, 'posts');
     return collectionData(postCollection, { idField: 'id' });
   }
-
 }

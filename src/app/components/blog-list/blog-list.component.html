@@ -5,7 +5,9 @@
   </header>
 
   <div class="blog-list">
-    <app-blog />
-    <app-blog />
+    @for(blog of blogs$ | async; track blog) {
+    <app-blog [blog]="blog"/>
+
+    }
   </div>
 </section>
