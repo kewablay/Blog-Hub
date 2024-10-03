@@ -1,9 +1,11 @@
 <nav>
   <div class="max-width-wrapper">
-    <div class="logo">
+    <a class="logo" routerLink="/">
       <img src="/assets/icons/logo.svg" alt="" />
-    </div>
+    </a>
 
-    <app-profile />
+    @if(user$ | async; as user){
+    <app-profile [authorId]="user['uid']" />
+    }
   </div>
 </nav>
