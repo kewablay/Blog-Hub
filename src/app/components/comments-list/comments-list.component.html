@@ -1,13 +1,13 @@
+@if(comments$ | async; as comments) {
 <div class="comments">
-  <h2>Top Comments (23)</h2>
+  <h2>Top Comments ({{comments.length}})</h2>
   <app-comment-input [postId]="postId" />
 
   <!-- Comment lists -->
-  @if(comments$ | async; as comments) {
   <div class="comment-list">
     @for(comment of comments; track comment) {
     <app-comment [comment]="comment" />
     }
   </div>
-  }
 </div>
+}
