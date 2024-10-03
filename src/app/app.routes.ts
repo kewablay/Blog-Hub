@@ -21,10 +21,25 @@ export const routes: Routes = [
       import('./features/home/home.component').then((m) => m.HomeComponent),
   },
   {
+    path: 'blog/new',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./features/create-blog/create-blog.component').then(
+        (m) => m.CreateBlogComponent
+      ),
+  },
+  {
     path: 'blog/:id',
     loadComponent: () =>
       import('./features/blog-detail/blog-detail.component').then(
         (m) => m.BlogDetailComponent
+      ),
+  },
+  {
+    path: 'blog/:id/edit',
+    loadComponent: () =>
+      import('./features/edit-blog/edit-blog.component').then(
+        (m) => m.EditBlogComponent
       ),
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
