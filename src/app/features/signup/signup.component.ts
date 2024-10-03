@@ -81,6 +81,8 @@ export class SignupComponent {
           });
         console.log(this.signUpForm.value);
       }
+    } else {
+      this.signUpForm.markAllAsTouched();
     }
   }
 }
