@@ -1,7 +1,14 @@
 <div class="profile">
-  <div class="image"></div>
+  <div class="image">
+    @if( user$ | async; as user){
+    <img [src]="user['avatarUrl']" alt="">
+    }
+    
+  </div>
   <div class="profile-detail">
-    <p class="name">&#64;johnDoe</p>
+    @if( user$ | async; as user){
+    <p class="name">&#64;{{ user["username"] }}</p>
     <small class="email text-secondary">blogger</small>
+    }
   </div>
 </div>
