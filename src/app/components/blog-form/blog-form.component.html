@@ -1,0 +1,27 @@
+<form [formGroup]="postForm" (submit)="onSubmit()">
+  <header class="flex-between">
+    <h1>Create Post</h1>
+    <button class="btn-primary" type="submit">Publish post</button>
+  </header>
+
+  <div class="title">
+    <input
+      type="text"
+      name="title"
+      id="title"
+      placeholder="New post title here..."
+      formControlName="title"
+    />
+  </div>
+  <div class="content">
+   
+    <textarea
+      name="content"
+      id="content"
+      placeholder="Post content goes here..."
+      cols="30"
+      rows="10"
+      formControlName="content"
+    ></textarea>
+  </div>
+</form>
