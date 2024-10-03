@@ -21,10 +21,10 @@ export const routes: Routes = [
       import('./features/home/home.component').then((m) => m.HomeComponent),
   },
   {
-    path: 'post/:id',
+    path: 'blog/:id',
     loadComponent: () =>
-      import('./features/post-detail/post-detail.component').then(
-        (m) => m.PostDetailComponent
+      import('./features/blog-detail/blog-detail.component').then(
+        (m) => m.BlogDetailComponent
       ),
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
