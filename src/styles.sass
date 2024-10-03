@@ -19,6 +19,10 @@ button
     font-weight: bold
     transition: all 0.3s ease
 
+.disabled 
+    opacity: 0.2
+    cursor: not-allowed !important
+
 
 h1 
     font-size: get-font-size(header, md)
@@ -64,7 +68,9 @@ label
 .max-width-wrapper
   max-width: 1440px
   margin-inline: auto
+  
 .content-wrapper
+  margin-top: 3rem
   max-width: 900px
   margin-inline: auto
 
@@ -87,7 +93,8 @@ label
 .text-secondary
   color: $clr-gray
 
-
+.flex-between 
+  +flex-between()
 .loader 
   margin-inline: auto
   width: 35px
@@ -106,3 +113,20 @@ label
       background-position:0%  50%, 50% 100%,100%   0%
     80%
       background-position:0%  50%, 50%  50%,100% 100%
+
+
+.custom-scroll
+  ::-webkit-scrollbar
+        height: 8px    // Set the height of the scrollbar
+        background-color: var(--background) // Background of the scrollbar track
+
+  ::-webkit-scrollbar-thumb
+      background-color: var(--bg-accent)    // Color of the scrollbar handle
+      border-radius: 4px
+
+  ::-webkit-scrollbar-thumb:hover
+      background-color: var(--secondary)  // Color when hovered
+
+  // Fallback for other browsers (Firefox)
+  scrollbar-width: thin
+  scrollbar-color: var(--bg-accent) var(--background)
