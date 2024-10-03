@@ -1,9 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommentsService } from '../../services/comments-service/comments.service';
 import { Observable } from 'rxjs';
 import { Auth, user, User } from '@angular/fire/auth';
 import { RouterLink } from '@angular/router';
+import { Notyf } from 'notyf';
+import { NOTYF } from '../../utils/notyf.token';
 
 @Component({
   selector: 'app-comment-input',
@@ -18,16 +20,25 @@ export class CommentInputComponent {
   @Input() postId!: string | null;
   comment = new FormControl('', [Validators.required]);
 
-  constructor(private commentService: CommentsService, private auth: Auth) {}
+  constructor(
+    private commentService: CommentsService,
+    private auth: Auth,
+    @Inject(NOTYF) private notyf: Notyf
+  ) {}
 
   postComment() {
     if (this.comment.valid) {
-      console.log("comment :", this.comment.value, this.postId, this.userId);
-      this.commentService.createComment(
-        this.comment.value,
-        this.postId,
-        this.userId
-      );
+      console.log('comment :', this.comment.value, this.postId, this.userId);
+      this.commentService
+        .createComment(this.comment.value, this.postId, this.userId)
+        .then(() => {
+          this.comment.reset();
+          this.notyf.success('Comment posted successfully');
+        })
+        .catch((err) => {
+          this.comment.reset();
+          this.notyf.error('Failed to post comment');
+        });
     }
   }
 
