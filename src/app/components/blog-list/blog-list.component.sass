@@ -1,0 +1,16 @@
+@use '../../../styles/_mixins.sass' as *
+@use '../../../styles/_variables.sass' as *
+@use '../../../styles/_functions.sass' as *
+
+
+section 
+    margin-top: 3rem
+    padding: 1.5rem
+    +flex($direction: column, $gap: 2.2rem)
+    
+    header 
+        @include flex-between()
+        
+    .blog-list  
+        +flex($direction: column, $gap: 2rem)
+        
