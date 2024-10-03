@@ -2,16 +2,22 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ProfileComponent } from '../../components/profile/profile.component';
 import { BlogPostService } from '../../services/blog-post/blog-post.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { DocumentData } from '@angular/fire/firestore';
 import { AsyncPipe } from '@angular/common';
-import { CommentsListComponent } from "../../components/comments-list/comments-list.component";
+import { CommentsListComponent } from '../../components/comments-list/comments-list.component';
 
 @Component({
   selector: 'app-blog-detail',
   standalone: true,
-  imports: [NavbarComponent, ProfileComponent, AsyncPipe, CommentsListComponent],
+  imports: [
+    NavbarComponent,
+    ProfileComponent,
+    AsyncPipe,
+    CommentsListComponent,
+    RouterLink,
+  ],
   templateUrl: './blog-detail.component.html',
   styleUrl: './blog-detail.component.sass',
 })
@@ -30,5 +36,4 @@ export class BlogDetailComponent {
       })
     );
   }
-
 }
