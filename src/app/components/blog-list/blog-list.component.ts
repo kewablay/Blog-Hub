@@ -4,11 +4,12 @@ import { BlogPostService } from '../../services/blog-post/blog-post.service';
 import { Observable } from 'rxjs';
 import { DocumentData } from '@angular/fire/firestore';
 import { AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-blog-list',
   standalone: true,
-  imports: [BlogComponent, AsyncPipe],
+  imports: [BlogComponent, AsyncPipe, RouterLink],
   templateUrl: './blog-list.component.html',
   styleUrl: './blog-list.component.sass',
 })

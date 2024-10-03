@@ -4,10 +4,13 @@
     <button class="btn-primary">Write a Blog</button>
   </header>
 
-  <div class="blog-list">
-    @for(blog of blogs$ | async; track blog) {
-    <app-blog [blog]="blog"/>
+  @if(blogs$ | async; as blogs) {
 
+  <div class="blog-list">
+    @for(blog of blogs; track blog) {
+    <app-blog [blog]="blog" [routerLink]="['/blog', blog['id']]" />
     }
   </div>
+
+  }
 </section>
