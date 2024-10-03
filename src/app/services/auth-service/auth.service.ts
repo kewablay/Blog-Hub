@@ -13,7 +13,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  
   constructor(
     private firestore: Firestore,
     private auth: Auth,
@@ -21,7 +20,7 @@ export class AuthService {
   ) {}
 
   authState(): Observable<any> {
-    return user(this.auth); 
+    return user(this.auth);
   }
 
   login(email: string, password: string) {
@@ -30,11 +29,17 @@ export class AuthService {
 
   signUp(email: string, username: string, password: string) {
     const usersCollection = collection(this.firestore, 'users');
+    const avatarUrl = `https://api.dicebear.com/9.x/thumbs/svg?seed=${username}&mouth=variant1,variant3,variant4,variant5,variant2`;
 
     return createUserWithEmailAndPassword(this.auth, email, password).then(
       (userCredentials) => {
         const userId = userCredentials.user.uid;
-        return addDoc(usersCollection, { id: userId, username: username });
+        return addDoc(usersCollection, {
+          uid: userId,
+          username: username,
+          email: email,
+          avatarUrl: avatarUrl,
+        }).then();
       }
     );
   }
