@@ -7,6 +7,7 @@ import { Observable, switchMap } from 'rxjs';
 import { DocumentData } from '@angular/fire/firestore';
 import { AsyncPipe } from '@angular/common';
 import { CommentsListComponent } from '../../components/comments-list/comments-list.component';
+import { Auth, user, User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-blog-detail',
@@ -24,9 +25,16 @@ import { CommentsListComponent } from '../../components/comments-list/comments-l
 export class BlogDetailComponent {
   blogPost$: Observable<DocumentData | undefined>;
   blogPostId!: string;
+  authorId!: string;
+  user$!: Observable<User | null>;
+  currentUserId!: string | undefined;
+
+  isLoggedIn: boolean | undefined;
+
   constructor(
     private blogPostsService: BlogPostService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private auth: Auth
   ) {
     this.blogPost$ = this.route.paramMap.pipe(
       switchMap((params) => {
@@ -35,5 +43,25 @@ export class BlogDetailComponent {
         return this.blogPostsService.getBlogById(blogId as string);
       })
     );
+  }
+
+  ngOnInit() {
+    this.user$ = user(this.auth);
+
+    this.user$.subscribe((user) => {
+      if (user) {
+        this.currentUserId = user.uid;
+      }
+    });
+
+    this.blogPost$.subscribe((blogPost) => {
+      if (blogPost) {
+        this.authorId = blogPost['authorId'];
+      }
+    });
+
+    if (this.currentUserId === this.authorId) {
+      this.isLoggedIn = true;
+    }
   }
 }
