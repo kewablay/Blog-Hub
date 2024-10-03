@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 export class BlogFormComponent {
   user$!: Observable<User | null>;
   userId: string | undefined;
+  createBlogLoading: boolean = false;
 
   postForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -47,6 +48,7 @@ export class BlogFormComponent {
 
   onSubmit() {
     if (this.postForm.valid) {
+      this.createBlogLoading = true;
       this.blogPostService
         .createBlogPost({
           title: this.postForm.value.title,
@@ -57,11 +59,13 @@ export class BlogFormComponent {
           authorId: this.userId,
         })
         .then(() => {
+          this.createBlogLoading = false;
           this.notyf.success('Post created successfully');
           this.postForm.reset();
           this.router.navigate(['/']);
         })
         .catch((err) => {
+          this.createBlogLoading = false;
           this.notyf.error('Failed to create post');
           console.error('Login failed', err.message);
         });

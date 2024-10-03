@@ -19,7 +19,9 @@
         [disabled]="comment.invalid"
         [class]="comment.valid ? '' : 'disabled'"
       >
-        Comment
+        @if(commentLoading){
+        <div class="loader"></div>
+        } @else{ Comment }
       </button>
     </div>
   </form>

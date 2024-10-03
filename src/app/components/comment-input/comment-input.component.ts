@@ -17,6 +17,8 @@ import { NOTYF } from '../../utils/notyf.token';
 export class CommentInputComponent {
   user$!: Observable<User | null>;
   userId: string | undefined = undefined;
+  commentLoading: boolean = false;
+
   @Input() postId!: string | null;
   comment = new FormControl('', [Validators.required]);
 
@@ -28,14 +30,17 @@ export class CommentInputComponent {
 
   postComment() {
     if (this.comment.valid) {
+      this.commentLoading = true;
       console.log('comment :', this.comment.value, this.postId, this.userId);
       this.commentService
         .createComment(this.comment.value, this.postId, this.userId)
         .then(() => {
+          this.commentLoading = false;
           this.comment.reset();
           this.notyf.success('Comment posted successfully');
         })
         .catch((err) => {
+          this.commentLoading = false;
           this.comment.reset();
           this.notyf.error('Failed to post comment');
         });
