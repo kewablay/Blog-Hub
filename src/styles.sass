@@ -16,19 +16,29 @@ body
 
 button
     cursor: pointer
+    font-weight: bold
+    transition: all 0.3s ease
 
 
 h1 
-    font-size: get-font-size(header, lg)
-    font-weight: bold
-
-h3
     font-size: get-font-size(header, md)
     font-weight: bold
+    letter-spacing: -1px
+
+    +breakpoint(medium)
+      font-size: get-font-size(header, lg)
+
+h3
+    font-size: get-font-size(body, md)
+    font-weight: medium
+    +breakpoint(medium)
+      font-size: get-font-size(body, xl)
 
 p
-    font-size: get-font-size(body, md)
+    font-size: get-font-size(body, sm)
     font-weight: normal
+    +breakpoint(medium)
+      font-size: get-font-size(body, md)
 
 small
     font-size: get-font-size(body, sm)
@@ -51,14 +61,26 @@ input
 label 
     font-size: get-font-size(body, sm)
 
-button
-    font-size: get-font-size(body, md) !important
-    font-weight: bold
-    transition: all 0.3s ease
+.max-width-wrapper
+  max-width: 1440px
+  margin-inline: auto
+.content-wrapper
+  max-width: 900px
+  margin-inline: auto
 
-    &:hover
-        opacity: 0.8
+.btn
+  &-primary 
+   @include button('primary')
 
+  &-secondary
+    @include button('secondary')
+
+  &-ghost
+    appearance: none
+    border: none 
+    background: none
+    color: var(--text)
+    font-weight: normal
 .text-warning
   color: $clr-red
 
