@@ -1,0 +1,35 @@
+@use '../../../styles/_mixins' as *
+@use '../../../styles/_variables' as *
+@use '../../../styles/_functions' as *
+
+
+
+
+.blog-detail 
+    padding-inline: 1.5rem
+    header 
+        margin-bottom: 2rem
+
+    .blog-post 
+        +flex($direction: column, $gap: 1.5rem)
+        background: var(--bg-accent)
+        padding: 1.5rem
+        border-radius: 7px
+
+        .blog-post-header 
+            +flex-between()
+
+        .read-time-and-reactions
+            +flex($gap: 2rem)
+
+            .read-time
+                +flex($gap: .5rem)
+
+            .reactions
+                +flex($gap: 1rem)
+
+
+        .content 
+            h3
+                margin-bottom: 1.5rem
+

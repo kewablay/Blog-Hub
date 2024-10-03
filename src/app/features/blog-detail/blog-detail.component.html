@@ -1,1 +1,70 @@
-<p>blog-detail works!</p>
+<main>
+  <app-navbar />
+  @if(blogPost$ | async; as blog) {
+  <section class="blog-detail content-wrapper">
+    <header class="flex-between">
+      <h1>Blog Detail</h1>
+      <button class="btn-primary">Write a Blog</button>
+    </header>
+
+    <div class="blog-post">
+      <div class="blog-post-header">
+        <app-profile [authorId]="blog['authorId']" />
+        <small class="text-secondary"> Oct 1 (16 hours ago) </small>
+      </div>
+
+      <div class="read-time-and-reactions">
+        <small class="read-time text-secondary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
+            fill="none"
+          >
+            <path
+              d="M1.25 2.9125C1.25 2.16875 1.85623 1.60625 2.59998 1.66875C3.91248 1.775 5.89998 2.43752 7.01248 3.13127L7.16873 3.225C7.34998 3.3375 7.65002 3.3375 7.83127 3.225L7.93751 3.15626C8.33126 2.91251 8.83125 2.66875 9.375 2.45V5.00001L10.625 4.16875L11.875 5.00001V1.73753C12.0438 1.70628 12.2063 1.68751 12.3563 1.67501H12.3938C13.1375 1.61251 13.75 2.16875 13.75 2.91875V10.4625C13.75 11.0625 13.2625 11.625 12.6625 11.7L12.4562 11.725C11.0937 11.9063 8.99373 12.6 7.79373 13.2625C7.63123 13.3562 7.36251 13.3562 7.19376 13.2625L7.16873 13.25C5.96873 12.5938 3.87502 11.9063 2.51877 11.725L2.33749 11.7C1.73749 11.625 1.25 11.0625 1.25 10.4625V5.53125"
+              stroke="white"
+              stroke-width="0.9375"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M7.5 3.43124V12.8062"
+              stroke="white"
+              stroke-width="0.9375"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M11.875 1.73752V5L10.625 4.16874L9.375 5V2.44999C10.1937 2.12499 11.1062 1.86252 11.875 1.73752Z"
+              stroke="white"
+              stroke-width="0.9375"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          1 min read
+        </small>
+        <div class="reactions">
+          <button class="btn-ghost">👍 {{ blog["likes"] }}</button>
+          <button class="btn-ghost">👎 {{ blog["dislikes"] }}</button>
+        </div>
+      </div>
+
+      <div class="content">
+        <h3>
+          {{ blog["title"] }}
+        </h3>
+
+        <p>
+          {{ blog["content"] }}
+        </p>
+      </div>
+    </div>
+
+    <!-- COMMMENTS SECTION -->
+    <app-comments-list [postId]="blogPostId" />
+  </section>
+  }
+</main>
