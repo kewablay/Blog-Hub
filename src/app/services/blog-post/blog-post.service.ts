@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  addDoc,
   collection,
   collectionData,
   doc,
@@ -27,4 +28,8 @@ export class BlogPostService {
     );
   }
 
+  createBlogPost(post: DocumentData) {
+    const postsCollection = collection(this.firestore, 'posts');
+    return addDoc(postsCollection, post);
+  }
 }
