@@ -3,6 +3,7 @@ import {
   addDoc,
   collection,
   collectionData,
+  deleteDoc,
   doc,
   DocumentData,
   Firestore,
@@ -31,5 +32,11 @@ export class BlogPostService {
   createBlogPost(post: DocumentData) {
     const postsCollection = collection(this.firestore, 'posts');
     return addDoc(postsCollection, post);
+  }
+
+  // Delete a blog post by ID
+  deleteBlogPost(id: string) {
+    const postDoc = doc(this.firestore, 'posts', id);
+    return from(deleteDoc(postDoc));
   }
 }

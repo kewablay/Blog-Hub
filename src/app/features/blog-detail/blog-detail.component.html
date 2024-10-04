@@ -9,7 +9,7 @@
         <button class="btn-primary" routerLink="/blog/{{ blogPostId }}/edit">
           Edit
         </button>
-        <button class="btn-secondary">Delete</button>
+        <button (click)="onDelete()" class="btn-secondary">Delete</button>
       </div>
       }@else{
       <button class="btn-primary" routerLink="/blog/new">Write a Blog</button>
