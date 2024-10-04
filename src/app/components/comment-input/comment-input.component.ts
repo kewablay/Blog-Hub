@@ -21,6 +21,7 @@ export class CommentInputComponent {
 
   @Input() postId!: string | null;
   comment = new FormControl('', [Validators.required]);
+  commentInputFocus: boolean = false;
 
   constructor(
     private commentService: CommentsService,
@@ -36,6 +37,7 @@ export class CommentInputComponent {
         .createComment(this.comment.value, this.postId, this.userId)
         .then(() => {
           this.commentLoading = false;
+          this.commentInputFocus = false
           this.comment.reset();
           this.notyf.success('Comment posted successfully');
         })

@@ -2,16 +2,22 @@
   <!-- <textarea name="comment" id="comment" placeholder="Share your thoughts" cols="30" rows="5"> -->
   <form>
     <textarea
+      (click)="commentInputFocus = true"
       name="comment"
       id="comment"
       placeholder="Share your thoughts"
-      cols="30"
-      rows="2"
       class="custom-scroll"
       [formControl]="comment"
+      [class]="commentInputFocus ? 'focused' : ''"
     ></textarea>
     <div class="comment-actions">
-      <button class="btn-secondary" type="button">Cancel</button>
+      <button
+        (click)="commentInputFocus = false"
+        class="btn-secondary"
+        type="button"
+      >
+        Cancel
+      </button>
       <button
         type="button"
         class="btn-primary"
