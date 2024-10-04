@@ -1,0 +1,16 @@
+<section class="content-wrapper">
+  <header>
+    <h1>Picked for you 😊</h1>
+    <button class="btn-primary" routerLink="/blog/new">Write a Blog</button>
+  </header>
+
+  @if(blogs$ | async; as blogs) {
+
+  <div class="blog-list">
+    @for(blog of blogs; track blog) {
+    <app-blog [blog]="blog" [routerLink]="['/blog', blog['id']]" />
+    }
+  </div>
+
+  }
+</section>

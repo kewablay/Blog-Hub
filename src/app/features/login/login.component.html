@@ -1,0 +1,74 @@
+<section class="grid">
+  <form [formGroup]="loginForm" (submit)="onSubmit()">
+    <div class="intro">
+      <h1>Welcome Back</h1>
+      <p>
+        Sign in to stay connected with your favorite content and join the
+        conversation.
+      </p>
+    </div>
+
+    <div class="input-sections">
+      <div class="input-group">
+        <!-- <label for="email">Email</label> -->
+        <input
+          placeholder="Email"
+          formControlName="email"
+          type="email"
+          name="email"
+          id="email"
+          [style]="{
+            borderColor:
+              loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+                ? 'var(--clr-red)'
+                : ''
+          }"
+        />
+        @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched){
+        @if(loginForm.get('email')?.errors?.['required']){
+        <small class="text-warning">Email is required</small>
+        } @if(loginForm.get('email')?.errors?.['email']){
+        <small class="text-warning">Invalid email format</small>
+        } }
+      </div>
+
+      <div class="input-group">
+        <!-- <label for="password">Password</label> -->
+        <input
+          formControlName="password"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          [style]="{
+            borderColor:
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.touched
+                ? 'var(--clr-red)'
+                : ''
+          }"
+        />
+        @if(loginForm.get('password')?.invalid &&
+        loginForm.get('password')?.touched){
+        @if(loginForm.get('password')?.errors?.['required']){
+        <small class="text-warning">Password is required</small>
+        } @if(loginForm.get('password')?.errors?.['minlength']){
+        <small class="text-warning"
+          >Password must be at least 6 characters</small
+        >
+        }}
+      </div>
+    </div>
+
+    <button type="submit" class="btn-primary">
+      @if(loginLoading){
+      <div class="loader"></div>
+      }@else{ Login to your account }
+    </button>
+
+    <p class="have-an-account">
+      Don't have an account? <a class="link" routerLink="/signup">Signup</a>
+    </p>
+  </form>
+  <div class="image"></div>
+</section>

@@ -1,0 +1,28 @@
+<div class="comment-input">
+  <!-- <textarea name="comment" id="comment" placeholder="Share your thoughts" cols="30" rows="5"> -->
+  <form>
+    <textarea
+      name="comment"
+      id="comment"
+      placeholder="Share your thoughts"
+      cols="30"
+      rows="2"
+      class="custom-scroll"
+      [formControl]="comment"
+    ></textarea>
+    <div class="comment-actions">
+      <button class="btn-secondary" type="button">Cancel</button>
+      <button
+        type="button"
+        class="btn-primary"
+        (click)="postComment()"
+        [disabled]="comment.invalid"
+        [class]="comment.valid ? '' : 'disabled'"
+      >
+        @if(commentLoading){
+        <div class="loader"></div>
+        } @else{ Comment }
+      </button>
+    </div>
+  </form>
+</div>
