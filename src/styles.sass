@@ -3,11 +3,16 @@
 @use './styles/_mixins' as *
 @use './styles/_theme' as *
 
-*
+@import "../node_modules/quill/dist/quill.core.css"
+@import "../node_modules/quill/dist/quill.snow.css"
+
+*:not(li, ol, ul, h1, h2, h3, h4, h5, h6)
     margin: 0
     padding: 0
     box-sizing: border-box
     font-family: $primary-font
+
+
 
 
 body
@@ -70,7 +75,7 @@ label
   margin-inline: auto
   
 .content-wrapper
-  margin-top: 3rem
+  margin-top: 1.5rem
   max-width: 900px
   margin-inline: auto
 
@@ -133,3 +138,17 @@ label
   // Fallback for other browsers (Firefox)
   scrollbar-width: thin
   scrollbar-color: var(--bg-accent) var(--background)
+
+
+// PRIME NG EDITOR STYLES 
+.p-editor-toolbar
+  background: var(--background)
+  border: none !important
+  padding-block: 1rem !important
+
+.p-editor-content
+  background: var(--bg-accent)
+  border: none !important
+
+.ql-color
+  color: white !important
