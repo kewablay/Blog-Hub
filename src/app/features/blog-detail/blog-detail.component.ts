@@ -10,6 +10,7 @@ import { CommentsListComponent } from '../../components/comments-list/comments-l
 import { Auth, user, User } from '@angular/fire/auth';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-blog-detail',
@@ -33,13 +34,15 @@ export class BlogDetailComponent {
   currentUserId!: string | undefined;
 
   isLoggedIn: boolean | undefined;
+  safeContent!: SafeHtml;
 
   constructor(
     private blogPostsService: BlogPostService,
     private route: ActivatedRoute,
     private router: Router,
     private auth: Auth,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+    private sanitizer: DomSanitizer
   ) {
     this.blogPost$ = this.route.paramMap.pipe(
       switchMap((params) => {
@@ -68,6 +71,15 @@ export class BlogDetailComponent {
         }
       }
     );
+
+    // Sanitize blog content html
+    this.blogPost$.subscribe((blogPost) => {
+      if (blogPost) {
+        this.safeContent = this.sanitizer.bypassSecurityTrustHtml(
+          blogPost['content']
+        );
+      }
+    });
   }
 
   onDelete() {
