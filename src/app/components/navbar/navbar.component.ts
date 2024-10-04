@@ -17,9 +17,13 @@ import { RouterLink } from '@angular/router';
 export class NavbarComponent {
   user$!: Observable<User | null>;
 
-  constructor(private auth: Auth) {}
+  constructor(private auth: Auth, private authService: AuthService) {}
 
   ngOnInit() {
     this.user$ = user(this.auth);
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }

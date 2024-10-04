@@ -15,7 +15,6 @@ export const routes: Routes = [
       ),
   },
   {
-    // canActivate: [authGuard],
     path: '',
     loadComponent: () =>
       import('./features/home/home.component').then((m) => m.HomeComponent),
@@ -23,6 +22,7 @@ export const routes: Routes = [
   {
     path: 'blog/new',
     pathMatch: 'full',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./features/create-blog/create-blog.component').then(
         (m) => m.CreateBlogComponent
@@ -37,6 +37,8 @@ export const routes: Routes = [
   },
   {
     path: 'blog/:id/edit',
+    canActivate: [authGuard],
+
     loadComponent: () =>
       import('./features/edit-blog/edit-blog.component').then(
         (m) => m.EditBlogComponent

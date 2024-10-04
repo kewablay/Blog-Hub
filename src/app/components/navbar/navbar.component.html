@@ -4,8 +4,11 @@
       <img src="/assets/icons/logo.svg" alt="" />
     </a>
 
-    @if(user$ | async; as user){
-    <app-profile [authorId]="user['uid']" />
-    }
+    <div class="profile-container">
+      @if(user$ | async; as user){
+      <app-profile [authorId]="user['uid']" />
+      }
+      <button (click)="onLogout()" class="logout">Logout</button>
+    </div>
   </div>
 </nav>
