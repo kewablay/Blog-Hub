@@ -1,7 +1,7 @@
 <div class="blog">
   <div class="header">
     <app-profile [authorId]="blog['authorId']" />
-    <small class="text-secondary"> Oct 1 (16 hours ago) </small>
+    <small class="text-secondary">{{ blog['dateCreated'].toDate() | date: "MMM d y"}} </small>
   </div>
 
   <div class="content">
