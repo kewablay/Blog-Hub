@@ -1,0 +1,9 @@
+<main>
+  <app-navbar />
+
+  <section class="content-wrapper">
+    @if(blogPost$ | async; as blog) {
+    <app-blog-form [blog]="blog" [blogPostId]="blogPostId" />
+    }
+  </section>
+</main>
