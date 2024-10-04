@@ -1,11 +1,19 @@
 <form [formGroup]="postForm" (submit)="onSubmit()">
   <header class="flex-between">
-    <h1>Create Post</h1>
-    <button class="btn-primary" type="submit">
-      @if(createBlogLoading){
-      <div class="loader"></div>
-      }@else{ Publish Post}
-    </button>
+    <h1>@if(blog) { Edit Post } @else { Create New Post }</h1>
+    @if(blog) {
+      <button class="btn-primary" type="submit">
+        @if(isLoading){
+        <div class="loader"></div>
+        }@else{ Update Post}
+      </button>
+    } @else {
+      <button class="btn-primary" type="submit">
+        @if(isLoading){
+        <div class="loader"></div>
+        }@else{ Publish Post}
+      </button>
+    }
   </header>
 
   <div class="title">
@@ -18,13 +26,15 @@
     />
   </div>
   <div class="content">
-    <textarea
+    <!-- <textarea
       name="content"
       id="content"
       placeholder="Post content goes here..."
       cols="30"
       rows="10"
       formControlName="content"
-    ></textarea>
+    ></textarea> -->
+
+    <p-editor formControlName="content" [style]="{ height: '320px' }" />
   </div>
 </form>
