@@ -5,7 +5,7 @@ import { BlogPostService } from '../../services/blog-post/blog-post.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { combineLatest, Observable, switchMap } from 'rxjs';
 import { DocumentData } from '@angular/fire/firestore';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { CommentsListComponent } from '../../components/comments-list/comments-list.component';
 import { Auth, user, User } from '@angular/fire/auth';
 import { NOTYF } from '../../utils/notyf.token';
@@ -20,6 +20,7 @@ import { Notyf } from 'notyf';
     AsyncPipe,
     CommentsListComponent,
     RouterLink,
+    DatePipe,
   ],
   templateUrl: './blog-detail.component.html',
   styleUrl: './blog-detail.component.sass',
