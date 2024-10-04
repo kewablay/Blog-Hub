@@ -1,7 +1,9 @@
 <div class="blog">
   <div class="header">
     <app-profile [authorId]="blog['authorId']" />
-    <small class="text-secondary">{{ blog['dateCreated'].toDate() | date: "MMM d y"}} </small>
+    <small class="text-secondary"
+      >{{ blog["dateCreated"].toDate() | date : "MMM d y" }}
+    </small>
   </div>
 
   <div class="content">
@@ -9,9 +11,7 @@
       {{ blog["title"] }}
     </h3>
 
-    <p>
-      {{ blog["content"] | truncate:200 }}
-    </p>
+    <p [innerHTML]="blog['content'] | truncate : 200"></p>
   </div>
 
   <div class="footer">
