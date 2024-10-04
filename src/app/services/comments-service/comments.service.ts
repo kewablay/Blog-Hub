@@ -3,6 +3,8 @@ import {
   addDoc,
   collection,
   collectionData,
+  deleteDoc,
+  doc,
   DocumentData,
   Firestore,
   query,
@@ -39,5 +41,10 @@ export class CommentsService {
       likes: 0,
       dislikes: 0,
     });
+  }
+
+  deleteComment(id: string) {
+    const commentDoc = doc(this.firestore, 'comments', id);
+    return from(deleteDoc(commentDoc));
   }
 }
