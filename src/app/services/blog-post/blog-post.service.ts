@@ -8,6 +8,7 @@ import {
   DocumentData,
   Firestore,
   getDoc,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { from, map, Observable } from 'rxjs';
 
@@ -38,5 +39,18 @@ export class BlogPostService {
   deleteBlogPost(id: string) {
     const postDoc = doc(this.firestore, 'posts', id);
     return from(deleteDoc(postDoc));
+  }
+
+  // Update a blog post by ID
+  // updateBlogPost(id: string, post: DocumentData) {
+  //   const postDoc = doc(this.firestore, 'posts', id);
+  //   return from(getDoc(postDoc)).pipe(
+  //     map((docSnap) => (docSnap.exists() ? docSnap.data() : undefined))
+  //   );
+  // }
+
+  updateBlogPost(id: string, post: Partial<DocumentData>) {
+    const postDoc = doc(this.firestore, 'posts', id);
+    return from(updateDoc(postDoc, post));
   }
 }
