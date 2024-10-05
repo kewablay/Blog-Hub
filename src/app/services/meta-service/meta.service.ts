@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable,Renderer2, RendererFactory2 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MetaService {
-  constructor(private meta: Meta, private titleService: Title) {}
+  private renderer!: Renderer2 
+  constructor(private meta: Meta, private titleService: Title, private rendererFactory: RendererFactory2) {}
 
   updateMeta(
     title: string,
@@ -22,5 +23,13 @@ export class MetaService {
     this.meta.updateTag({ name: 'og:title', content: title });
     this.meta.updateTag({ name: 'og:description', content: description });
     // this.meta.updateTag({ name: 'og:image', content: imageUrl });
+  }
+
+   // Create a JSON-LD structured data script
+   createStructuredDataScript(data: object): HTMLScriptElement {
+    const script = this.renderer.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(data);
+    return script;
   }
 }

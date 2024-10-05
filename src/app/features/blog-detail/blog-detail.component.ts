@@ -11,6 +11,7 @@ import { Auth, user, User } from '@angular/fire/auth';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { MetaService } from '../../services/meta-service/meta.service';
 
 @Component({
   selector: 'app-blog-detail',
@@ -44,7 +45,8 @@ export class BlogDetailComponent {
     private router: Router,
     private auth: Auth,
     @Inject(NOTYF) private notyf: Notyf,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private metaService: MetaService
   ) {
     this.blogPost$ = this.route.paramMap.pipe(
       switchMap((params) => {
@@ -86,6 +88,12 @@ export class BlogDetailComponent {
 
         // set dislikes
         this.dislikes = blogPost['dislikes'];
+        // set meta tags
+        this.metaService.updateMeta(
+          blogPost['title'],
+          (blogPost['content'] as string).substring(0, 150),
+          'Angular, Firebase, Blog'
+        );
       }
     });
   }
@@ -94,18 +102,20 @@ export class BlogDetailComponent {
     this.blogPost$.subscribe((blogPost) => {
       if (blogPost) {
         this.likes++;
-        this.blogPostsService.updateBlogPost(this.blogPostId, {
-          likes: blogPost['likes'] + 1,
-        }).subscribe({
-          next: () => {
-            // this.likes++;
-          },
-          error: (err) => {
-            this.likes--;
-            this.notyf.error('Failed to like blog post');
-            console.error('Failed to like blog post', err.message);
-          },
-        })
+        this.blogPostsService
+          .updateBlogPost(this.blogPostId, {
+            likes: blogPost['likes'] + 1,
+          })
+          .subscribe({
+            next: () => {
+              // this.likes++;
+            },
+            error: (err) => {
+              this.likes--;
+              this.notyf.error('Failed to like blog post');
+              console.error('Failed to like blog post', err.message);
+            },
+          });
       }
     });
   }
@@ -114,18 +124,20 @@ export class BlogDetailComponent {
     this.blogPost$.subscribe((blogPost) => {
       if (blogPost) {
         this.dislikes++;
-        this.blogPostsService.updateBlogPost(this.blogPostId, {
-          dislikes: blogPost['dislikes'] + 1,
-        }).subscribe({
-          next: () => {
-            // this.dislikes++;
-          },
-          error: (err) => {
-            this.dislikes--;
-            this.notyf.error('Failed to dislike blog post');
-            console.error('Failed to dislike blog post', err.message);
-          },
-        })
+        this.blogPostsService
+          .updateBlogPost(this.blogPostId, {
+            dislikes: blogPost['dislikes'] + 1,
+          })
+          .subscribe({
+            next: () => {
+              // this.dislikes++;
+            },
+            error: (err) => {
+              this.dislikes--;
+              this.notyf.error('Failed to dislike blog post');
+              console.error('Failed to dislike blog post', err.message);
+            },
+          });
       }
     });
   }
@@ -142,5 +154,31 @@ export class BlogDetailComponent {
         console.error('Failed to delete blog post', err.message);
       },
     });
+  }
+
+  private addStructuredData(blogPost: DocumentData) {
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': window.location.href,
+      },
+      headline: blogPost['title'],
+      author: {
+        '@type': 'Person',
+        name: blogPost['authorName'],
+      },
+      dateCreated: blogPost['dateCreated'], 
+      publisher: {
+        '@type': 'Blog Hub',
+        name: 'Blog Hub',
+      },
+      description: blogPost['content'].substring(0, 150),
+    };
+
+    const scriptTag =
+      this.metaService.createStructuredDataScript(structuredData);
+    document.head.appendChild(scriptTag);
   }
 }
