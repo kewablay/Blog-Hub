@@ -58,7 +58,7 @@ export class LoginComponent {
     this.authService
       .googleSignIn()
       .then(() => {
-        this.notyf.success('Account created successful.');
+        this.notyf.success('Login successful.');
         this.router.navigate(['']);
       })
       .catch((err) => {
