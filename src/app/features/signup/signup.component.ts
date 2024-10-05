@@ -43,23 +43,14 @@ export class SignupComponent {
     },
     { validators: this.passwordMatchValidator }
   );
-  // signUpForm = new FormGroup({
-  //   userName: new FormControl('', [Validators.required]),
-  //   email: new FormControl('', [Validators.required, Validators.email]),
-  //   password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-  //   confirmPassword: new FormControl('', [Validators.required]),
-  // }, );
-
+  
   // Custom validator to check if passwords match
   passwordMatchValidator(form: AbstractControl) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { mismatch: true };
   }
-  TestSubmit() {
-    console.log('About to signup');
-    this.authService.signUp('kewablay@gmail.com', 'deadpool', 'password123');
-  }
+  
 
   onSubmit() {
     if (this.signUpForm.valid) {
