@@ -61,6 +61,18 @@ export class SignupComponent {
     return password === confirmPassword ? null : { mismatch: true };
   }
 
+  onGoogleSignup() {
+    this.authService
+      .googleSignIn()
+      .then(() => {
+        this.notyf.success('Account created successful.');
+        this.router.navigate(['']);
+      })
+      .catch((err) => {
+        this.notyf.error('Error occured while logging in');
+      });
+  }
+
   onSubmit() {
     if (this.signUpForm.valid) {
       this.signUpLoading = true;
