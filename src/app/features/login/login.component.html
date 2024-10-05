@@ -66,9 +66,21 @@
       }@else{ Login to your account }
     </button>
 
+    <div class="or">
+      <span class="line"></span>
+      <span>OR</span>
+      <span class="line"></span>
+    </div>
+
+    <button type="button" class="btn-secondary" (click)="onGoogleLogin()">
+      Login with Google
+    </button>
+
     <p class="have-an-account">
       Don't have an account? <a class="link" routerLink="/signup">Signup</a>
     </p>
   </form>
-  <div class="image"></div>
+  <div class="image">
+    <img src="assets/auth-hero.jpeg" alt="auth-hero-image" />
+  </div>
 </section>

@@ -54,6 +54,18 @@ export class LoginComponent {
     );
   }
 
+  onGoogleLogin() {
+    this.authService
+      .googleSignIn()
+      .then(() => {
+        this.notyf.success('Account created successful.');
+        this.router.navigate(['']);
+      })
+      .catch((err) => {
+        this.notyf.error('Error occured while logging in');
+      });
+  }
+
   onSubmit() {
     if (this.loginForm.valid) {
       this.loginLoading = true;
