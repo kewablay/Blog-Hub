@@ -7,8 +7,10 @@
     <div class="profile-container">
       @if(user$ | async; as user){
       <app-profile [authorId]="user['uid']" />
-      }
       <button (click)="onLogout()" class="logout">Logout</button>
+      } @else {
+        <button class="btn-secondary" routerLink="/auth/login">Login</button>
+      }
     </div>
   </div>
 </nav>
