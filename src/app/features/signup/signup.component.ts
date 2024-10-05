@@ -84,7 +84,7 @@ export class SignupComponent {
           .then(() => {
             this.signUpLoading = false;
             this.notyf.success('Account created successful.');
-            this.router.navigate(['/login']);
+            this.router.navigate(['auth/login']);
           })
           .catch((err) => {
             this.signUpLoading = false;

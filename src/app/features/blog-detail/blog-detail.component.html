@@ -1,5 +1,4 @@
 <main>
-  <app-navbar />
   @if(blogPost$ | async; as blog) {
   <section class="blog-detail content-wrapper">
     <header class="flex-between">
@@ -58,8 +57,10 @@
           1 min read
         </small>
         <div class="reactions">
-          <button (click)="onLike()" class="btn-ghost">👏 {{ likes}}</button>
-          <button (click)="onDislike()" class="btn-ghost">👎 {{ dislikes }}</button>
+          <button (click)="onLike()" class="btn-ghost">👏 {{ likes }}</button>
+          <button (click)="onDislike()" class="btn-ghost">
+            👎 {{ dislikes }}
+          </button>
         </div>
       </div>
 
