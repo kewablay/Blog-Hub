@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithPopup,
   user,
+  UserCredential,
 } from '@angular/fire/auth';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -43,6 +46,25 @@ export class AuthService {
       }
     );
   }
+
+  googleSignIn(): Promise<UserCredential> {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(this.auth, provider).then((result) => {
+      const user = result.user;
+      const usersCollection = collection(this.firestore, 'users');
+      
+      // Check if user already exists, if not add to Firestore
+      return addDoc(usersCollection, {
+        uid: user.uid,
+        username: user.displayName,
+        email: user.email,
+        avatarUrl: user.photoURL,
+      }).then(() => result);
+    });
+  }
+
+
+  
 
   logout() {
     // this.router.navigate(['/login']);
