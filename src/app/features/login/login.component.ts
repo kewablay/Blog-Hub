@@ -10,6 +10,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
+import { MetaService } from '../../services/meta-service/meta.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+    private metaService: MetaService
   ) {}
 
   loginForm = new FormGroup({
@@ -43,6 +45,13 @@ export class LoginComponent {
     } else {
       console.log('error');
     }
+
+    // set meta tags
+    this.metaService.updateMeta(
+      'Login | Blog Hub - Access Your Account',
+      'Login to Blog Hub and access your personal dashboard, write blogs, and connect with fellow writers and readers. Dont have an account? Sign up today!',
+      'Blog Hub login, login to account, access blog hub, blogging platform login, writers login, readers login, blog hub sign in'
+    );
   }
 
   onSubmit() {

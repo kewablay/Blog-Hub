@@ -8,6 +8,7 @@ import { NOTYF } from '../../utils/notyf.token';
 import { DocumentData } from '@angular/fire/firestore';
 import { Observable, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { MetaService } from '../../services/meta-service/meta.service';
 
 @Component({
   selector: 'app-edit-blog',
@@ -24,6 +25,7 @@ export class EditBlogComponent {
     private route: ActivatedRoute,
     private router: Router,
     @Inject(NOTYF) private notyf: Notyf,
+    private metaService: MetaService
   
   ) {
     this.blogPost$ = this.route.paramMap.pipe(
@@ -33,6 +35,15 @@ export class EditBlogComponent {
         return this.blogPostsService.getBlogById(blogId as string);
       })
     );
+  }
+
+
+  ngOnInit() {
+    this.metaService.updateMeta(
+      "Edit Your Blog | Blog Hub - Update and Enhance Your Content", 
+      "Edit your blog post on Blog Hub. Make updates, add new ideas, and improve your content. Keep your blog fresh and engaging for your readers",
+      "edit blog, update blog, Blog Hub edit, modify blog post, blog platform, improve blog content, blogging community"
+    )
   }
 
 }

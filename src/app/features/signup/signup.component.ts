@@ -10,6 +10,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
+import { MetaService } from '../../services/meta-service/meta.service';
 
 @Component({
   selector: 'app-signup',
@@ -24,8 +25,17 @@ export class SignupComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+    private metaService: MetaService
   ) {}
+
+  ngOnInit() {
+    this.metaService.updateMeta(
+      'Sign Up | Blog Hub - Join Our Community of Writers & Readers',
+      'Create your free account on Blog Hub, where writers share stories and readers discover new perspectives. Sign up today and start your blogging journey!',
+      'Blog Hub sign up, create account, blogging platform, join Blog Hub, writers community, readers community, blogging platform registration'
+    );
+  }
 
   signUpForm = new FormGroup(
     {
@@ -43,14 +53,13 @@ export class SignupComponent {
     },
     { validators: this.passwordMatchValidator }
   );
-  
+
   // Custom validator to check if passwords match
   passwordMatchValidator(form: AbstractControl) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { mismatch: true };
   }
-  
 
   onSubmit() {
     if (this.signUpForm.valid) {
