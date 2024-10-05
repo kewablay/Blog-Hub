@@ -58,8 +58,8 @@
           1 min read
         </small>
         <div class="reactions">
-          <button class="btn-ghost">👍 {{ blog["likes"] }}</button>
-          <button class="btn-ghost">👎 {{ blog["dislikes"] }}</button>
+          <button (click)="onLike()" class="btn-ghost">👏 {{ likes}}</button>
+          <button (click)="onDislike()" class="btn-ghost">👎 {{ dislikes }}</button>
         </div>
       </div>
 

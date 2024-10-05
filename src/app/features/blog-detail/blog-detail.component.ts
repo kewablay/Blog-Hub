@@ -32,6 +32,8 @@ export class BlogDetailComponent {
   authorId!: string;
   user$!: Observable<User | null>;
   currentUserId!: string | undefined;
+  likes!: number;
+  dislikes!: number;
 
   isLoggedIn: boolean | undefined;
   safeContent!: SafeHtml;
@@ -78,6 +80,52 @@ export class BlogDetailComponent {
         this.safeContent = this.sanitizer.bypassSecurityTrustHtml(
           blogPost['content']
         );
+
+        // set likes
+        this.likes = blogPost['likes'];
+
+        // set dislikes
+        this.dislikes = blogPost['dislikes'];
+      }
+    });
+  }
+
+  onLike() {
+    this.blogPost$.subscribe((blogPost) => {
+      if (blogPost) {
+        this.likes++;
+        this.blogPostsService.updateBlogPost(this.blogPostId, {
+          likes: blogPost['likes'] + 1,
+        }).subscribe({
+          next: () => {
+            // this.likes++;
+          },
+          error: (err) => {
+            this.likes--;
+            this.notyf.error('Failed to like blog post');
+            console.error('Failed to like blog post', err.message);
+          },
+        })
+      }
+    });
+  }
+
+  onDislike() {
+    this.blogPost$.subscribe((blogPost) => {
+      if (blogPost) {
+        this.dislikes++;
+        this.blogPostsService.updateBlogPost(this.blogPostId, {
+          dislikes: blogPost['dislikes'] + 1,
+        }).subscribe({
+          next: () => {
+            // this.dislikes++;
+          },
+          error: (err) => {
+            this.dislikes--;
+            this.notyf.error('Failed to dislike blog post');
+            console.error('Failed to dislike blog post', err.message);
+          },
+        })
       }
     });
   }
