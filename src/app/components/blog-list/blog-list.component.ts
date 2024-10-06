@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BlogComponent } from '../blog/blog.component';
 import { BlogPostService } from '../../services/blog-post/blog-post.service';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { DocumentData } from '@angular/fire/firestore';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -15,9 +15,22 @@ import { RouterLink } from '@angular/router';
 })
 export class BlogListComponent {
   blogs$!: Observable<DocumentData[]>;
+  blogLoading: boolean = true;
+  mockBlogsForLoading = [...Array(3)];
+
   constructor(private blogPostsService: BlogPostService) {}
 
   ngOnInit() {
     this.blogs$ = this.blogPostsService.getBlogPosts();
+
+    this.blogs$.subscribe({
+      next: (blogs) => {
+        this.blogLoading = false;
+      },
+      error: (err) => {
+        this.blogLoading = false;
+        console.error('Failed to load blogs', err.message);
+      },
+    });
   }
 }

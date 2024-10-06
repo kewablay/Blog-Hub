@@ -12,5 +12,8 @@
     }
   </div>
 
-  }
+  } @else if (blogLoading) { @for(blog of mockBlogsForLoading; track blog) {
+  <!-- <p>Blogs loading</p> -->
+  <app-blog  />
+  } }
 </section>

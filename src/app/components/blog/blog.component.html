@@ -1,3 +1,4 @@
+@if(blog) {
 <div class="blog">
   <div class="header">
     <app-profile [authorId]="blog['authorId']" />
@@ -53,3 +54,26 @@
     </div>
   </div>
 </div>
+
+} @else {
+<!-- SHOW LOADING SKELETON -->
+<div class="blog">
+  <div class="header">
+    <p-skeleton shape="circle" size="3rem" styleClass="skeleton" />
+    <p-skeleton width="4rem" styleClass="skeleton" />
+  </div>
+
+  <div class="content">
+    <p-skeleton height="1.5rem" styleClass="skeleton" />
+
+    <p-skeleton height=".7rem" styleClass="skeleton" />
+    <p-skeleton height=".7rem" styleClass="skeleton" />
+  </div>
+
+  <div class="footer">
+    <p-skeleton height=".8rem" width="3.5rem" styleClass="skeleton" />
+    <p-skeleton height=".8rem" width="3rem" styleClass="skeleton" />
+  </div>
+</div>
+
+}

@@ -3,11 +3,12 @@
 @use './styles/_mixins' as *
 @use './styles/_theme' as *
 
+@import "primeng/resources/themes/lara-light-blue/theme.css"
+@import "primeng/resources/primeng.css"
+
 @import "../node_modules/quill/dist/quill.core.css"
 @import "../node_modules/quill/dist/quill.snow.css"
 
-@import "primeng/resources/themes/lara-light-blue/theme.css"
-@import "primeng/resources/primeng.css"
 
 *:not(li, ol, ul, h1, h2, h3, h4, h5, h6)
     margin: 0
@@ -150,13 +151,13 @@ label
 
 // PRIME NG EDITOR STYLES 
 .p-editor-toolbar
-  background: var(--background)
+  background: var(--background) !important
   border: none !important
   padding-block: 1rem !important
 
-.p-editor-content
-  background: var(--bg-accent)
+.p-editor-content , .ql-editor
   border: none !important
+  background: var(--bg-accent) !important
 
 .ql-color
   color: white !important
@@ -164,6 +165,6 @@ label
 
 
 .skeleton
-    background:  var(--bg-accent)
+    background: var(--background)
     width: 100%
     // margin-bottom: .5rem
