@@ -2,7 +2,7 @@
   <div class="header">
     <app-profile [authorId]="blog['authorId']" />
     <small class="text-secondary"
-      >{{ blog["dateCreated"].toDate() | date : "MMM d y" }}
+      >{{ blog["dateCreated"] | firestoreTimestamp | date : "MMM d y" }}
     </small>
   </div>
 

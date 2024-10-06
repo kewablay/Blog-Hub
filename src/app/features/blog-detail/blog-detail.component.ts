@@ -12,6 +12,7 @@ import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MetaService } from '../../services/meta-service/meta.service';
+import { FirestoreTimestampPipe } from '../../pipes/firestore-timestamp.pipe';
 
 @Component({
   selector: 'app-blog-detail',
@@ -23,6 +24,7 @@ import { MetaService } from '../../services/meta-service/meta.service';
     CommentsListComponent,
     RouterLink,
     DatePipe,
+    FirestoreTimestampPipe,
   ],
   templateUrl: './blog-detail.component.html',
   styleUrl: './blog-detail.component.sass',

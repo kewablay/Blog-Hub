@@ -7,11 +7,12 @@ import { DatePipe } from '@angular/common';
 import { CommentsService } from '../../services/comments-service/comments.service';
 import { NOTYF } from '../../utils/notyf.token';
 import { Notyf } from 'notyf';
+import { FirestoreTimestampPipe } from '../../pipes/firestore-timestamp.pipe';
 
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [ProfileComponent, DatePipe],
+  imports: [ProfileComponent, DatePipe, FirestoreTimestampPipe],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.sass',
 })

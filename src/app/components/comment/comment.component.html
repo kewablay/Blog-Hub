@@ -2,7 +2,7 @@
   <div class="header">
     <app-profile [authorId]="comment['authorId']" />
     <small class="text-secondary">
-      {{ comment["createdAt"].toDate() | date : "MMM d y" }}
+      {{ comment["createdAt"] |firestoreTimestamp | date : "MMM d y" }}
     </small>
   </div>
 
