@@ -15,6 +15,7 @@ import { MetaService } from '../../services/meta-service/meta.service';
 import { FirestoreTimestampPipe } from '../../pipes/firestore-timestamp.pipe';
 import { AnalyticsService } from '../../services/analytics-service/analytics.service';
 import { SkeletonModule } from 'primeng/skeleton';
+import { ReadTimePipe } from '../../pipes/read-time.pipe';
 
 @Component({
   selector: 'app-blog-detail',
@@ -27,7 +28,8 @@ import { SkeletonModule } from 'primeng/skeleton';
     RouterLink,
     DatePipe,
     FirestoreTimestampPipe,
-    SkeletonModule
+    SkeletonModule,
+    ReadTimePipe
   ],
   templateUrl: './blog-detail.component.html',
   styleUrl: './blog-detail.component.sass',

@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { FirestoreTimestampPipe } from '../../pipes/firestore-timestamp.pipe';
 import { SkeletonModule } from 'primeng/skeleton';
 import { RouterLink } from '@angular/router';
+import { ReadTimePipe } from '../../pipes/read-time.pipe';
 
 @Component({
   selector: 'app-blog',
@@ -17,6 +18,7 @@ import { RouterLink } from '@angular/router';
     FirestoreTimestampPipe,
     SkeletonModule,
     RouterLink,
+    ReadTimePipe,
   ],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.sass',

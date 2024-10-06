@@ -46,7 +46,7 @@
           stroke-linejoin="round"
         />
       </svg>
-      1 min read
+      {{ blog["content"] | readTime }} read
     </small>
     <div class="reactions">
       <button class="btn-ghost">👍 {{ blog["likes"] }}</button>

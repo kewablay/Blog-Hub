@@ -54,7 +54,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          1 min read
+          {{ blog["content"] | readTime }} read
         </small>
         <div class="reactions">
           <button (click)="onLike()" class="btn-ghost">👏 {{ likes }}</button>
@@ -97,7 +97,7 @@
       </div>
 
       <div class="content">
-        <div class="title" style="margin-bottom: 1.5rem;">
+        <div class="title" style="margin-bottom: 1.5rem">
           <p-skeleton height="1.5rem" styleClass="skeleton skeleton-mb" />
         </div>
 
