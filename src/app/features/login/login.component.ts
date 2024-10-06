@@ -58,11 +58,11 @@ export class LoginComponent {
     this.authService
       .googleSignIn()
       .then(() => {
-        this.notyf.success('Login successful.');
+        this.notyf.success('Authentication successful.');
         this.router.navigate(['']);
       })
       .catch((err) => {
-        this.notyf.error('Error occured while logging in');
+        this.notyf.error('Authentication error, try again.');
       });
   }
 
@@ -75,7 +75,7 @@ export class LoginComponent {
           .login(email, password)
           .then(() => {
             this.loginLoading = false;
-            this.notyf.success('Account created successful.');
+            this.notyf.success('Login successful.');
             this.router.navigate(['']);
           })
           .catch(
