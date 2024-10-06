@@ -5,6 +5,7 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { DatePipe } from '@angular/common';
 import { FirestoreTimestampPipe } from '../../pipes/firestore-timestamp.pipe';
 import { SkeletonModule } from 'primeng/skeleton';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -15,6 +16,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     DatePipe,
     FirestoreTimestampPipe,
     SkeletonModule,
+    RouterLink,
   ],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.sass',

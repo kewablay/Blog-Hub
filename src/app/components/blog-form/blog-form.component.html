@@ -2,17 +2,17 @@
   <header class="flex-between">
     <h1>@if(blog) { Edit Post } @else { Create New Post }</h1>
     @if(blog) {
-      <button class="btn-primary" type="submit">
-        @if(isLoading){
-        <div class="loader"></div>
-        }@else{ Update Post}
-      </button>
+    <button class="btn-primary" type="submit">
+      @if(isLoading){
+      <div class="loader"></div>
+      }@else{ Update Post}
+    </button>
     } @else {
-      <button class="btn-primary" type="submit">
-        @if(isLoading){
-        <div class="loader"></div>
-        }@else{ Publish Post}
-      </button>
+    <button class="btn-primary" type="submit">
+      @if(isLoading){
+      <div class="loader"></div>
+      }@else{ Publish Post}
+    </button>
     }
   </header>
 
@@ -35,6 +35,10 @@
       formControlName="content"
     ></textarea> -->
 
-    <p-editor formControlName="content" [style]="{ height: '320px' }" />
+    <p-editor
+      placeholder="Post content goes here..."
+      formControlName="content"
+      [style]="{ height: '320px' }"
+    />
   </div>
 </form>
