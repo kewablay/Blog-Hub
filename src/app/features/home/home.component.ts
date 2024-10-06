@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth-service/auth.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { BlogListComponent } from '../../components/blog-list/blog-list.component';
 import { MetaService } from '../../services/meta-service/meta.service';
+import { AnalyticsService } from '../../services/analytics-service/analytics.service';
 
 @Component({
   selector: 'app-home',
@@ -19,10 +20,13 @@ export class HomeComponent {
   constructor(
     private blogPostsService: BlogPostService,
     private authService: AuthService,
-    private metaService: MetaService
+    private metaService: MetaService,
+    private analyticsService: AnalyticsService
   ) {}
 
   ngOnInit() {
+    this.analyticsService.logPageView('Home Page');
+
     this.posts$ = this.blogPostsService.getBlogPosts();
     this.posts$.subscribe((posts) => console.log('posts:', posts));
 

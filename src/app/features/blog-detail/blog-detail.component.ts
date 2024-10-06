@@ -13,6 +13,7 @@ import { Notyf } from 'notyf';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MetaService } from '../../services/meta-service/meta.service';
 import { FirestoreTimestampPipe } from '../../pipes/firestore-timestamp.pipe';
+import { AnalyticsService } from '../../services/analytics-service/analytics.service';
 
 @Component({
   selector: 'app-blog-detail',
@@ -48,7 +49,8 @@ export class BlogDetailComponent {
     private auth: Auth,
     @Inject(NOTYF) private notyf: Notyf,
     private sanitizer: DomSanitizer,
-    private metaService: MetaService
+    private metaService: MetaService,
+    private analyticsService: AnalyticsService
   ) {
     this.blogPost$ = this.route.paramMap.pipe(
       switchMap((params) => {
@@ -65,6 +67,12 @@ export class BlogDetailComponent {
         if (currentUser && blogPost) {
           const currentUserId = currentUser.uid;
           const authorId = blogPost['authorId'];
+
+          // Log analytics
+          this.analyticsService.logBlogPostView(
+            this.blogPostId,
+            blogPost['title']
+          );
 
           console.log('Current User ID: ', currentUserId);
           console.log('Author ID: ', authorId);
@@ -110,7 +118,8 @@ export class BlogDetailComponent {
           })
           .subscribe({
             next: () => {
-              // this.likes++;
+              // log like analytics
+              this.analyticsService.logLike(this.blogPostId, this.currentUserId!);
             },
             error: (err) => {
               this.likes--;
@@ -171,7 +180,7 @@ export class BlogDetailComponent {
         '@type': 'Person',
         name: blogPost['authorName'],
       },
-      dateCreated: blogPost['dateCreated'], 
+      dateCreated: blogPost['dateCreated'],
       publisher: {
         '@type': 'Blog Hub',
         name: 'Blog Hub',

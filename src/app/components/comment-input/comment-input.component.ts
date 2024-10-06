@@ -6,6 +6,7 @@ import { Auth, user, User } from '@angular/fire/auth';
 import { RouterLink } from '@angular/router';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../utils/notyf.token';
+import { AnalyticsService } from '../../services/analytics-service/analytics.service';
 
 @Component({
   selector: 'app-comment-input',
@@ -26,7 +27,8 @@ export class CommentInputComponent {
   constructor(
     private commentService: CommentsService,
     private auth: Auth,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+    private analyticsService: AnalyticsService
   ) {}
 
   postComment() {
@@ -36,8 +38,14 @@ export class CommentInputComponent {
       this.commentService
         .createComment(this.comment.value, this.postId, this.userId)
         .then(() => {
+          // log comment analytics
+          this.analyticsService.logComment(
+            this.postId as string,
+            this.userId as string
+          );
+          
           this.commentLoading = false;
-          this.commentInputFocus = false
+          this.commentInputFocus = false;
           this.comment.reset();
           this.notyf.success('Comment posted successfully');
         })

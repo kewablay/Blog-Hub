@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { BlogFormComponent } from '../../components/blog-form/blog-form.component';
 import { MetaService } from '../../services/meta-service/meta.service';
+import { AnalyticsService } from '../../services/analytics-service/analytics.service';
 
 @Component({
   selector: 'app-create-blog',
@@ -11,9 +12,15 @@ import { MetaService } from '../../services/meta-service/meta.service';
   styleUrl: './create-blog.component.sass',
 })
 export class CreateBlogComponent {
-  constructor(private metaService: MetaService) {}
+  constructor(
+    private metaService: MetaService,
+    private analyticsService: AnalyticsService
+  ) {}
 
   ngOnInit() {
+    // Log analytics
+    this.analyticsService.logPageView('Create Blog Page');
+    
     // set meta tags
     this.metaService.updateMeta(
       'Create a New Blog | Blog Hub - Share Your Stories with the World',
