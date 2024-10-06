@@ -1,14 +1,16 @@
 <div class="profile">
   <div class="image">
     @if( user$ | async; as user){
-    <img [src]="user['avatarUrl']" alt="">
+    <img [src]="user['avatarUrl']" alt="" />
     }
-    
   </div>
   <div class="profile-detail">
     @if( user$ | async; as user){
     <p class="name">&#64;{{ user["username"] }}</p>
     <small class="email text-secondary">blogger</small>
+    } @else if (userLoading) {
+    <p-skeleton width="5rem" styleClass="skeleton"  />
+    <p-skeleton height=".6rem" width="3.5rem" styleClass="skeleton" />
     }
   </div>
 </div>
