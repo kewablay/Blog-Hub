@@ -14,6 +14,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MetaService } from '../../services/meta-service/meta.service';
 import { FirestoreTimestampPipe } from '../../pipes/firestore-timestamp.pipe';
 import { AnalyticsService } from '../../services/analytics-service/analytics.service';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-blog-detail',
@@ -26,6 +27,7 @@ import { AnalyticsService } from '../../services/analytics-service/analytics.ser
     RouterLink,
     DatePipe,
     FirestoreTimestampPipe,
+    SkeletonModule
   ],
   templateUrl: './blog-detail.component.html',
   styleUrl: './blog-detail.component.sass',
@@ -41,6 +43,7 @@ export class BlogDetailComponent {
 
   isLoggedIn: boolean | undefined;
   safeContent!: SafeHtml;
+  blogLoading: boolean = true;
 
   constructor(
     private blogPostsService: BlogPostService,
@@ -62,9 +65,10 @@ export class BlogDetailComponent {
   }
 
   ngOnInit() {
-    combineLatest([user(this.auth), this.blogPost$]).subscribe(
-      ([currentUser, blogPost]) => {
+    combineLatest([user(this.auth), this.blogPost$]).subscribe({
+      next: ([currentUser, blogPost]) => {
         if (currentUser && blogPost) {
+          this.blogLoading = false;
           const currentUserId = currentUser.uid;
           const authorId = blogPost['authorId'];
 
@@ -83,8 +87,12 @@ export class BlogDetailComponent {
           // If either user or blogPost is null/undefined
           this.isLoggedIn = false;
         }
-      }
-    );
+      },
+      error: (err) => {
+        console.error('Error fetching blog post:', err);
+        this.blogLoading = false;
+      },
+    });
 
     // Sanitize blog content html
     this.blogPost$.subscribe((blogPost) => {
@@ -119,7 +127,10 @@ export class BlogDetailComponent {
           .subscribe({
             next: () => {
               // log like analytics
-              this.analyticsService.logLike(this.blogPostId, this.currentUserId!);
+              this.analyticsService.logLike(
+                this.blogPostId,
+                this.currentUserId!
+              );
             },
             error: (err) => {
               this.likes--;
